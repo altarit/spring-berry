@@ -14,6 +14,18 @@
 
 
     <dependencies>
+        <!-- Project -->
+        <dependency>
+            <groupId>com.altarit.berry</groupId>
+            <artifactId>berry-persist</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.altarit.berry</groupId>
+            <artifactId>berry-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -42,8 +54,6 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
         </dependency>
-
-
     </dependencies>
 
     <build>

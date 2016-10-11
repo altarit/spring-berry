@@ -1,7 +1,10 @@
 package com.altarit.berry.webapp.configuration;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -9,9 +12,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.altarit.berry.persist.configuration.JpaConfig;
+
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.altarit.berry.webapp")
+@ComponentScan(basePackages = "com.altarit.berry")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -28,4 +33,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/public/**").addResourceLocations("/public/");
     }
 
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages");
+        return messageSource;
+    }
 }

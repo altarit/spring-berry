@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>berry-webapp</module>
+        <module>berry-persist</module>
+        <module>berry-model</module>
     </modules>
 
     <properties>
