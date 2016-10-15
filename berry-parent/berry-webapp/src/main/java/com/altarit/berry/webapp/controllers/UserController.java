@@ -4,6 +4,8 @@ import com.altarit.berry.model.entity.User;
 import com.altarit.berry.model.entity.UserProfile;
 import com.altarit.berry.persist.service.UserProfileService;
 import com.altarit.berry.persist.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/")
 @SessionAttributes("roles")
 public class UserController {
+
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -89,6 +93,7 @@ public class UserController {
 
     @RequestMapping(value = "/deletion/{username}", method = RequestMethod.GET)
     public String deleteUserPage(Model model, @PathVariable String username) {
+        logger.debug("username: {}", username);
         System.out.println(username);
         model.addAttribute("username", username);
         return "users/deletion";
