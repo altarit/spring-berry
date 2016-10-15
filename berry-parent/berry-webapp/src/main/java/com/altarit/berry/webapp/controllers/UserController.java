@@ -29,23 +29,23 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserProfileService userProfileService;
+    private UserProfileService userProfileService;
 
     @Autowired
-    MessageSource messageSource;
+    private MessageSource messageSource;
 
     @RequestMapping(value= {"/users"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
+    public String getUserList(ModelMap model) {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users/index";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String newUser(Model model) {
+    public String createNewUserPage(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String addUser(Model model, @Valid User user, BindingResult result) {
+    public String createNewUser(ModelMap model, @Valid User user, BindingResult result) {
         System.out.println(user);
         if (result.hasErrors()) {
             System.out.println("err: " + result);
@@ -66,7 +66,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/registration/{username}", method = RequestMethod.GET)
-    public String editUserPage(@PathVariable String username, Model model) {
+    public String updateUserPage(@PathVariable String username, Model model) {
         System.out.println(username);
         User user = userService.findByUsername(username);
         //user = new User();
