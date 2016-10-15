@@ -1,10 +1,14 @@
 package com.altarit.berry.webapp.configuration;
 
+import com.altarit.berry.webapp.converters.RoleToUserProfileConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -19,9 +23,13 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
+@Import(JpaConfig.class)
 @EnableWebMvc
 @ComponentScan(basePackages = "com.altarit.berry")
 public class AppConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    RoleToUserProfileConverter roleToUserProfileConverter;
 
     /*@Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -37,6 +45,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/public/**").addResourceLocations("/public/");
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(roleToUserProfileConverter);
+    }
+
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -44,10 +57,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return messageSource;
     }
 
-    @Override
+    /*@Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
+    }       */
 
     @Bean
     public TilesViewResolver getTilesViewResolver() {

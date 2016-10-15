@@ -33,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
+        if (user.getId() == null) {
+            return;
+        }
         User entity = dao.findById(user.getId());
         if (entity != null) {
             //entity.se(user.getSsoId());

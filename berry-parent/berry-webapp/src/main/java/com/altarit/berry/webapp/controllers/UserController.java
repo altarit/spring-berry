@@ -1,6 +1,7 @@
 package com.altarit.berry.webapp.controllers;
 
 import com.altarit.berry.model.entity.User;
+import com.altarit.berry.model.entity.UserProfile;
 import com.altarit.berry.persist.service.UserProfileService;
 import com.altarit.berry.persist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,19 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/")
+@SessionAttributes("roles")
 public class UserController {
 
     @Autowired
@@ -26,14 +33,79 @@ public class UserController {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(value= {"/", "/list"}, method = RequestMethod.GET)
+    @RequestMapping(value= {"/users"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users/index";
     }
 
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String newUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("edit", false);
+        return "users/registration";
+    }
 
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String addUser(Model model, @Valid User user, BindingResult result) {
+        System.out.println(user);
+        if (result.hasErrors()) {
+            System.out.println("err: " + result);
+            return "users/registration";
+        }
+        userService.saveUser(user);
+        System.out.println(user);
+        return "redirect:/users";
+    }
+
+
+    @RequestMapping(value = "/registration/{username}", method = RequestMethod.GET)
+    public String editUserPage(@PathVariable String username, Model model) {
+        System.out.println(username);
+        User user = userService.findByUsername(username);
+        //user = new User();
+        user.setUsername(username);
+        System.out.println("found: " + user);
+        model.addAttribute("user", user);
+        model.addAttribute("edit", false);
+        return "users/registration";
+    }
+
+
+    @RequestMapping(value = "/registration/{username}", method = RequestMethod.POST)
+    public String updateUser(Model model, @Valid User user, BindingResult result) {
+        System.out.println(user);
+        if (result.hasErrors()) {
+            System.out.println("err: " + result);
+            return "users/registration";
+        }
+        userService.updateUser(user);
+        return "redirect:/users";
+    }
+
+
+
+    @RequestMapping(value = "/deletion/{username}", method = RequestMethod.GET)
+    public String deleteUserPage(Model model, @PathVariable String username) {
+        System.out.println(username);
+        model.addAttribute("username", username);
+        return "users/deletion";
+    }
+
+
+    @RequestMapping(value = "/deletion/{username}", method = RequestMethod.POST)
+    public String deleteUser(Model model, @PathVariable String username) {
+        System.out.println(username);
+        userService.deleteUserByUsername(username);
+        return "redirect:/users";
+    }
+
+    @ModelAttribute("roles")
+    public List<UserProfile> initializeProfiles() {
+        return userProfileService.findAll();
+    }
 
 
 }

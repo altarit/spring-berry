@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<div class="well lead">Delete ${username} ?</div>
+
+<form:form method="POST" class="form-horizontal" action="/deletion/${username}">
+
+    <div class="row">
+        <div class="form-actions floatRight">
+            <input type="submit" value="Delete" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/users/' />">Cancel</a>
+        </div>
+    </div>
+</form:form>
+

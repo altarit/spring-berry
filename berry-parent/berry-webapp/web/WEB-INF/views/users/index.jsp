@@ -18,13 +18,13 @@
             <tr>
                 <td>${user.username}</td>
                 <td>${user.email}</td>
-                <td><a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a></td>
-                <td><a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a></td>
+                <td><a href="<c:url value='/registration/${user.username}' />" class="btn btn-success custom-width">edit</a></td>
+                <td><a href="<c:url value='/deletion/${user.username}' />" class="btn btn-danger custom-width">delete</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 </div>
 <div class="well">
-    <a href="<c:url value='/newuser' />">Add New User</a>
+    <a href="<c:url value='/registration' />">Add New User</a>
 </div>

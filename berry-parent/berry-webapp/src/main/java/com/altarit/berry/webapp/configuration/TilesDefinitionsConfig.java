@@ -35,6 +35,7 @@ public class TilesDefinitionsConfig implements DefinitionsFactory {
         addDefaultLayoutDef("home", "Home", "/WEB-INF/views/home.jsp");
         addDefaultLayoutDef("index", "Index", "/WEB-INF/views/index.jsp");
         addDefaultLayoutDef("users/index", "Users", "/WEB-INF/views/users/index.jsp");
-        addDefaultLayoutDef("users/registration", "Users", "/WEB-INF/views/users/registration.jsp");
+        addDefaultLayoutDef("users/registration", "Registration", "/WEB-INF/views/users/registration.jsp");
+        addDefaultLayoutDef("users/deletion", "Deletion", "/WEB-INF/views/users/deletion.jsp");
     }
 }
