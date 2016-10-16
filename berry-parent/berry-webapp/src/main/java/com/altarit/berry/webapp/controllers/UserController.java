@@ -106,6 +106,11 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLoginPage(Model model) {
+        return "users/login";
+    }
+
     @ModelAttribute("roles")
     public List<UserProfile> initializeProfiles() {
         return userProfileService.findAll();
