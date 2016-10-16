@@ -19,6 +19,7 @@
 
     <properties>
         <spring.framework.version>4.3.3.RELEASE</spring.framework.version>
+        <springsecurity.version>4.0.4.RELEASE</springsecurity.version>
     </properties>
 
 
