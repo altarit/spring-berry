@@ -67,13 +67,12 @@ public class UserController {
 
     @RequestMapping(value = "/registration/{username}", method = RequestMethod.GET)
     public String updateUserPage(@PathVariable String username, Model model) {
-        System.out.println(username);
+        System.out.println("updateUserPage: " + username);
         User user = userService.findByUsername(username);
         //user = new User();
         user.setUsername(username);
-        System.out.println("found: " + user);
         model.addAttribute("user", user);
-        model.addAttribute("edit", false);
+        model.addAttribute("edit", true);
         return "users/registration";
     }
 
