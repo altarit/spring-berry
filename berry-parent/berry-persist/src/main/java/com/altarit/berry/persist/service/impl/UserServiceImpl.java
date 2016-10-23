@@ -14,7 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDao dao;
+    private UserDao dao;
 
     @Override
     public User findById(int id) {

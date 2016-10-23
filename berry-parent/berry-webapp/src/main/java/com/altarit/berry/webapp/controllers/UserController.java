@@ -1,7 +1,9 @@
 package com.altarit.berry.webapp.controllers;
 
+import com.altarit.berry.model.entity.Post;
 import com.altarit.berry.model.entity.User;
 import com.altarit.berry.model.entity.UserProfile;
+import com.altarit.berry.persist.service.PostService;
 import com.altarit.berry.persist.service.UserProfileService;
 import com.altarit.berry.persist.service.UserService;
 import org.slf4j.Logger;
@@ -37,6 +39,10 @@ public class UserController {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private PostService postService;
+
+
     @RequestMapping(value= {"/users"}, method = RequestMethod.GET)
     public String getUserList(ModelMap model) {
         List<User> users = userService.findAllUsers();
@@ -70,7 +76,7 @@ public class UserController {
         System.out.println("updateUserPage: " + username);
         User user = userService.findByUsername(username);
         //user = new User();
-        user.setUsername(username);
+        user.setUsername(username); //why?
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
         return "users/registration";
@@ -113,8 +119,12 @@ public class UserController {
 
     @ModelAttribute("roles")
     public List<UserProfile> initializeProfiles() {
+        logger.debug("initializeProfiles: roles");
+        List<UserProfile> result = userProfileService.findAll();
+        logger.debug("result: " + result);
         return userProfileService.findAll();
     }
+
 
 
 }

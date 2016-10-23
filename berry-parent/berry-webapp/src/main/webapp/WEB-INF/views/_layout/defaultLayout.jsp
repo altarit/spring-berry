@@ -20,10 +20,9 @@
 <div class="page">
     <tiles:insertAttribute name="header" />
         <div class="container">
-
             <div class="blog-header">
-                <h1 class="blog-title">Title</h1>
-                <p class="lead blog-description">Description</p>
+                <!--<h1 class="blog-title">Title ${title} !</h1>
+                <p class="lead blog-description">Description</p>      -->
             </div>
 
             <div class="row">
@@ -37,6 +36,7 @@
         </div>
 
     <tiles:insertAttribute name="footer" />
+
 </div>
 </body>
 </html>

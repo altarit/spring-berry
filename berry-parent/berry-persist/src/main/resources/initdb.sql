@@ -24,6 +24,16 @@ CREATE TABLE APP_USER_USER_PROFILE (
     CONSTRAINT FK_USER_PROFILE FOREIGN KEY (user_profile_id) REFERENCES USER_PROFILE (id)
 );
 
+drop table blog_post;
+
+create table BLOG_POST (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(160) NOT NULL,
+  source TEXT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
 /* Populate USER_PROFILE Table */
 INSERT INTO USER_PROFILE(type)
 VALUES ('USER');
