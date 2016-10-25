@@ -3,6 +3,8 @@ package com.altarit.berry.persist.dao.impl;
 import com.altarit.berry.model.entity.User;
 import com.altarit.berry.persist.dao.AbstractDao;
 import com.altarit.berry.persist.dao.UserDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -13,6 +15,8 @@ import java.util.List;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
+    private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+
     public User findById(int id) {
         User user = getByKey(id);
         if (user != null) {
@@ -22,7 +26,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     }
 
     public User findByUsername(String name) {
-        System.out.println("SSO : " + name);
+        logger.debug("Username: {}", name);
         try {
             User user = (User) getEntityManager()
                     .createQuery("SELECT u FROM User u WHERE u.username LIKE :username")
@@ -32,8 +36,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
             if (user != null) {
                 initializeCollection(user.getUserProfiles());
             }
+            logger.debug("user: {}", user);
             return user;
         } catch (NoResultException ex) {
+            logger.debug("user is not found");
             return null;
         }
     }

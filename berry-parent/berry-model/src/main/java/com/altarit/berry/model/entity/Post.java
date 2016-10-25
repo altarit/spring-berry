@@ -3,6 +3,7 @@ package com.altarit.berry.model.entity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "BLOG_POST")
@@ -19,6 +20,12 @@ public class Post {
     @NotEmpty
     @Column(name = "SOURCE", nullable = false)
     private String source;
+
+    @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(name="USER_ID")
+    private User user;
+
 
     public Integer getId() {
         return id;
@@ -42,6 +49,14 @@ public class Post {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
